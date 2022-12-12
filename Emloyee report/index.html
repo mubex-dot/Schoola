@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;
+      0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;
+      1,600;1,700;1,800;1,900;1,1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      html {
+        font-size: 15px;
+      }
+
+      * {
+        margin: 0;
+      }
+
+      /* =================================TYPOGRAPHY=================================*/
+
+      body {
+        font-family: "Nunito", sans-serif;
+        text-align: left;
+      }
+
+      table {
+        border-collapse: collapse;
+        border-radius: 5px;
+      }
+
+      /* =================================CLASSES=================================*/
+
+      .container {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 1em;
+      }
+
+      .top {
+        width: 100%;
+      }
+
+      .dhf {
+        padding-left: 1em;
+      }
+
+      .line {
+        margin-top: 0.4em;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-bottom: 6px solid #30d5c8;
+      }
+
+      .header {
+        margin-top: 1.5em;
+        border: 1px solid #000;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+      }
+
+      .logo img {
+        height: 3em;
+        width: 3em;
+        margin-right: 0.8em;
+      }
+
+      .logo,
+      .session {
+        padding: 1em;
+      }
+
+      .employee {
+        margin-top: 1.5em;
+        text-align: left;
+        width: 100%;
+      }
+
+      .employee-info {
+        margin-top: 0.8em;
+        border: 1px solid #000;
+        width: 100%;
+      }
+
+      .employee-info h4 {
+        padding: 1em 1em;
+      }
+
+      .leaves {
+        margin-top: 1.5em;
+      }
+
+      .leaves,
+      .leaves-taken {
+        width: 100%;
+      }
+
+      .leaves-taken {
+        margin-top: 0.8em;
+      }
+
+      .leaves-taken .head {
+        border: 1px solid #000;
+        border-bottom: none;
+        padding: 1em;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .bold {
+        font-weight: 700;
+      }
+
+      .space {
+        width: 68%;
+      }
+
+      .squeeze {
+        width: 10%;
+      }
+
+      .minutes {
+        margin-top: 1.5em;
+        width: 100%;
+      }
+
+      .minutes-lost {
+        margin-top: 0.8em;
+        width: 100%;
+      }
+
+      .minutes-lost table,
+      .leaves-taken table {
+        width: 100%;
+      }
+
+      .appraisals,
+      .awards {
+        margin-top: 1.5em;
+        width: 100%;
+      }
+
+      .appraisals-table,
+      .awards-table {
+        margin-top: 0.8em;
+        width: 100%;
+      }
+
+      .appraisals-table th,
+      .appraisals-table td,
+      .awards-table th,
+      .awards-table td,
+      .minutes-lost th,
+      .minutes-lost td,
+      .leaves-taken th,
+      .leaves-taken td {
+        padding: 1em 0.8em;
+      }
+
+      .appraisals-table table,
+      .awards-table table {
+        width: 100%;
+      }
+
+      @media print {
+        html {
+          font-size: 9px;
+        }
+
+        .container {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top">
+        <div class="dhf">
+          <h4>DHF:{{record_number}}:{{date_generated}}</h4>
+        </div>
+        <span class="line"></span>
+      </div>
+      <div class="header">
+        <div class="session">
+          <h3>Darul Huda Foundation Employee Report</h3>
+          <p>({{session_name}})</p>
+        </div>
+        <div class="logo">
+          <img src="navbar.PNG" alt="" />
+        </div>
+      </div>
+      <div class="employee">
+        <h3>Employee Information</h3>
+      </div>
+      <div class="employee-info">
+        <h4>Name: {{employee_full_name}}</h4>
+        <h4>Email: {{employee_email}}</h4>
+        <h4>Phone: {{employee_phone}}</h4>
+        <h4>Job Position: {{job_position}}</h4>
+        <h4>Employment Type: {{job_employment_type}}</h4>
+      </div>
+      <div class="leaves">
+        <h3>Leaves taken</h3>
+      </div>
+      <div class="leaves-taken">
+        <div class="head">
+          <p>Employee Leaves: <span class="bold">{{days}}</span></p>
+          <p>Leaves Taken: <span class="bold">{{days}}</span></p>
+          <p>Leaves Remaining: <span class="bold">{{days}}</span></p>
+        </div>
+        <table border="1">
+          <tbody>
+            <tr>
+              <th class="squeeze">FROM</th>
+              <th class="squeeze">TO</th>
+              <th class="space">REASON</th>
+              <th class="squeeze">DAYS</th>
+            </tr>
+            <tr>
+              <td>9, Jan 2022</td>
+              <td>12, Mar 2022</td>
+              <td>Maternity Leave</td>
+              <td>30 days</td>
+            </tr>
+            <tr>
+              <td>9, Jan 2022</td>
+              <td>12, Mar 2022</td>
+              <td>Maternity Leave</td>
+              <td>30 days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="minutes">
+        <h3>Minutes Lost</h3>
+      </div>
+      <div class="minutes-lost">
+        <table border="1">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                Total minutes lost: <span class="bold">{{total_minutes}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Late Arrival <br />(92 mins)</td>
+              <td>
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+              </td>
+            </tr>
+            <tr>
+              <td>Late Arrival <br />(92 mins)</td>
+              <td>
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+                [9:00am] arrived 9:23am (23 mins),<br />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="appraisals">
+        <h4>Appraisals</h4>
+      </div>
+      <div class="appraisals-table">
+        <table border="1">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                Appraisal Group: <span class="bold">{{appraisal_group}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{evaluation item}}</td>
+              <td>{{evaluation_point}}</td>
+            </tr>
+            <tr>
+              <td>{{evaluation item}}</td>
+              <td>{{evaluation_point}}</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                Appraisal Group: <span class="bold">{{appraisal_group}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>{{evaluation item}}</td>
+              <td>{{evaluation_point}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="awards">
+        <h3>Awards</h3>
+      </div>
+      <div class="awards-table">
+        <table border="1">
+          <tbody>
+            <tr>
+              <td>
+                <span class="bold">{{award_name}}</span> : {{award_description}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="bold">{{award_name}}</span> : {{award_description}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
